@@ -11,6 +11,7 @@ export default function onContentChange(Comp) {
             this.state = {}
             this.handleChange = this.handleChange.bind(this)
         }
+        
         handleChange(key, val) {
             console.log(key, val)
             this.setState({

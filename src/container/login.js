@@ -9,7 +9,7 @@ import { Redirect } from 'react-router-dom'
     state => state.user,
     { login }
 )
-@onContentChange
+@onContentChange  //其实也就是返回一个新的Login组件
 class Login extends React.Component {
     constructor(props) {
         super(props)
@@ -28,6 +28,7 @@ class Login extends React.Component {
                 <WingBlank>
                     <List>
                         <WhiteSpace />
+                        {/* 固定写法 v代码当前标签的value */}
                         <InputItem onChange={v => { this.props.handleChange('username', v) }}>用户</InputItem>
                         <WhiteSpace />
                         <InputItem type='password' onChange={v => { this.props.handleChange('password', v) }}>密码</InputItem>

@@ -1,19 +1,21 @@
 import { getRedirectPath } from '../util'
 import axios from 'axios'
 
-
+/**这里是redux的actions */
 const AUTH_SUCCESS = 'AUTH_SUCCESS'
 const ERROR_MSG = 'ERROR_MSG'
 // const LOGOUT = 'LOGOUT'
 const LOAD_DATA = 'LOAD_DATA'
 
-
+/**初始状态 */
 const initState = {
     username: '',
     type: '',
     msg: '',
     redirectTo: ''
 }//初始状态
+
+/** reducer */
 export function user(state = initState, action) {
     switch (action.type) {
         case AUTH_SUCCESS:
@@ -28,6 +30,7 @@ export function user(state = initState, action) {
 }//reducer
 
 
+/**action creators */
 function errorMsg(msg) {
     return {
         type: ERROR_MSG,
@@ -44,7 +47,7 @@ function authSuccess(obj) {
     }
 }//actionCreator
 
-
+/**注册 */
 export function register({ username, password, repeatpsw, type }) {
     console.log(username, password, repeatpsw, type)
     if (!username || !password)
@@ -87,6 +90,7 @@ export function update(userinfo) {
     }
 }
 
+/** 传说中的中间件 */
 export function login(formuser) {
     const {username, password} = formuser
     if(!username || !password){

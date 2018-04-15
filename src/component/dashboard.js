@@ -3,15 +3,10 @@ import { NavBar } from 'antd-mobile'
 import { Switch, Route } from "react-router-dom";
 import {connect} from 'react-redux'
 import NavLinkBar from '../component/navlinkbar'
-
+import Genius from '../component/genius'
 function Boss() {
     return (
         <div>牛人列表</div>
-    )
-}
-function Genius() {
-    return (
-        <div>BOSS列表</div>
     )
 }
 function Msg() {
