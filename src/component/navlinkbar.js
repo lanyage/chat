@@ -24,7 +24,8 @@ class NavLinkBar extends React.Component {
                                 selectedIcon={{uri:require(`./tabbarimg/${v.icon}-active.png`)}}
                                 selected={v.path === pathname}
                                 onPress={()=>{this.props.history.push(v.path)}}
-                                ></TabBar.Item>
+                                >
+                                </TabBar.Item>
                         ))
                     }
                 </TabBar>

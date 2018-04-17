@@ -13,6 +13,7 @@ import BossInfo from "./container/bossinfo" //boss信息页面
 import GeniusInfo from './container/geniusinfo' //牛人信息页面
 import DashBoard from './component/dashboard' //主页,会存在子路由
 
+import './index.css'
 
 /**创建store */
 const store = createStore(reducer, compose(

@@ -9,8 +9,10 @@ const _filter = { 'password': 0, '__v': 0 }//设置返回数据的过滤器
 
 
 Router.get('/list', function (req, res) {
+    //通过这样获取get请求中的参数
+    const { type } = req.query
     // User.remove({}, function(e,d){})
-    User.find({}, function (err, doc) {
+    User.find({ type: type }, function (err, doc) {
         return res.json({ code: 0, data: doc })
     })//按照类型查找
 })//配置user的子路由,监听这个/user/list请求
@@ -65,7 +67,7 @@ Router.post('/update', function (req, res) {
 
 Router.post('/login', function (req, res) {
     const { username, password } = req.body
-    User.findOne({ username, password:md5Psw(password) }, function (e, d) {
+    User.findOne({ username, password: md5Psw(password) }, function (e, d) {
         if (!d) {
             return res.json({ code: 1, msg: '用户名密码错误' })
         }
