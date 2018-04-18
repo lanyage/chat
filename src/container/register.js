@@ -22,9 +22,9 @@ class Register extends React.Component {
         const redirectTo = this.props.redirectTo
         return (
             <div>
-                {redirectTo && redirectTo !== pathname ? <Redirect to={redirectTo} /> : null}
+                {redirectTo && redirectTo !== pathname && redirectTo !== '/login' ? <Redirect to={redirectTo} /> : null}
                 {/* 如果成功了就会有redirectTo那么就在渲染之前进行跳转 */}
-                {this.props.redirectTo ? <Redirect to={this.props.redirectTo} /> : null}
+                {/* {this.props.redirectTo ? <Redirect to={this.props.redirectTo} /> : null} */}
                 <Logo></Logo>
                 <WingBlank>
                     <List>

@@ -35,7 +35,6 @@ class UserCard extends React.Component {
                             ):null
                         )
                     )}
-
                 </WingBlank>
             </div>
         )

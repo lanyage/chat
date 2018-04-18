@@ -18,9 +18,9 @@ class Login extends React.Component {
     register() {
         this.props.history.push('/register')
     }
-    render() {
+    render() {    
         const pathname = this.props.location.pathname
-        const redirectTo = this.props.redirectTo
+        const redirectTo = this.props.redirectTo  
         return (
             <div>
                 {redirectTo && redirectTo !== pathname ? <Redirect to={redirectTo} /> : null}

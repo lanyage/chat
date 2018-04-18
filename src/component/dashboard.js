@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import NavLinkBar from '../component/navlinkbar'
 import Genius from '../component/genius'
 import Boss from '../component/boss'
+import User from '../component/user'
 function Msg() {
     return (
         <div>
@@ -12,21 +13,17 @@ function Msg() {
         </div>
     )
 }
-function User() {
-    return (
-        <div>
-            <h1>User</h1>
-        </div>
-    )
-}
+
+
 @connect(
-    state => state.user
+    state => state
 )
 class DashBoard extends React.Component {
-
+   
     render() {
-        const pathname = this.props.location.pathname
-        const user = this.props
+        // console.log('dashboard!!')
+        const { pathname } = this.props.location
+        const user = this.props.user
         const navList = [
             {
                 path: '/boss',
@@ -44,6 +41,7 @@ class DashBoard extends React.Component {
                 component: Genius,
                 hide: user.type === 'boss'
             },
+
             {
                 path: '/msg',
                 text: '消息',

@@ -1,12 +1,21 @@
 import React from 'react'
-import axios from 'axios'
+// import axios from 'axios'
 import {connect} from 'react-redux'
-import {Card, WhiteSpace, WingBlank} from 'antd-mobile'
+// import {Card, WhiteSpace, WingBlank} from 'antd-mobile'
+import {getUserList} from '../redux/chatuser.redux'
+import UserCard from '../component/usercard'
+@connect(
+    state => state.chatuser,
+    {getUserList}
+)
 class Genius extends React.Component {
+    componentDidMount() {
+        this.props.getUserList('boss')
+    }
     render() {
         return (
             <div>
-                <h2>牛人列表</h2>
+                <UserCard userlist = {this.props.userlist}></UserCard>
             </div>
         )
     }
