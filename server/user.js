@@ -5,8 +5,10 @@ const Router = express.Router()//生成express子路由
 
 const model = require('./model')//获取数据库模型
 const User = model.getModel('user')//获取对应的表模型
+const Chat = model.getModel('chat')//获取聊天信息的模型
 const _filter = { 'password': 0, '__v': 0 }//设置返回数据的过滤器
 
+// Chat.remove({},function(e,d){})
 
 Router.get('/list', function (req, res) {
     //通过这样获取get请求中的参数
@@ -76,6 +78,21 @@ Router.post('/login', function (req, res) {
     })
 })
 
+Router.get('/getmsglist', function(req, res) {
+    const userid = req.cookies.userid
+    // '$or':[{from:user},{to:user}]
+    User.find({}, function(e, d) {
+        let users = {}
+        d.forEach(v => {
+            users[v._id] = {name : v.username, avatar: v.avatar}
+        })
+        Chat.find({'$or':[{from:userid},{to:userid}]},function(e, d) {
+            if(!e) {
+                return res.json({code : 0, msgs : d, users : users})
+            }
+        })
+    }) 
+})
 
 function md5Psw(password) {
     const salt = 'dakhfohqoafoajfalmLF2424@#$25dfslege'

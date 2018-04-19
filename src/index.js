@@ -12,6 +12,7 @@ import register from './container/register' //用户注册组件
 import BossInfo from "./container/bossinfo" //boss信息页面
 import GeniusInfo from './container/geniusinfo' //牛人信息页面
 import DashBoard from './component/dashboard' //主页,会存在子路由
+import Chat from './component/chat'
 import './index.css'
 
 /**创建store */
@@ -36,6 +37,7 @@ ReactDOM.render(
 						<Route path='/bossinfo' component={BossInfo}></Route>
 						<Route path='/login' component={Login}></Route>
 						<Route path='/register' component={register}></Route>
+						<Route path='/chat/:user' component={Chat}></Route>
 						{/* 这是dashboard页面,其下有很多子路由 */}
 						<Route component={DashBoard}></Route>
 					</Switch>
