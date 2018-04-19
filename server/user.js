@@ -8,6 +8,7 @@ const User = model.getModel('user')//获取对应的表模型
 const Chat = model.getModel('chat')//获取聊天信息的模型
 const _filter = { 'password': 0, '__v': 0 }//设置返回数据的过滤器
 
+/** 清除所有的聊天记录 */
 // Chat.remove({},function(e,d){})
 
 Router.get('/list', function (req, res) {
@@ -21,7 +22,7 @@ Router.get('/list', function (req, res) {
 
 
 Router.post('/register', function (req, res) {
-    console.log(req.body)
+    // console.log(req.body)
     const { username, password, type } = req.body
     User.findOne({ username }, function (e, d) {
         if (d) {
@@ -80,7 +81,6 @@ Router.post('/login', function (req, res) {
 
 Router.get('/getmsglist', function(req, res) {
     const userid = req.cookies.userid
-    // '$or':[{from:user},{to:user}]
     User.find({}, function(e, d) {
         let users = {}
         d.forEach(v => {

@@ -23,8 +23,11 @@ function Msg() {
 )
 class DashBoard extends React.Component {
     componentDidMount() {
-        this.props.getMsgList()
-        this.props.recvMsg()
+        /** 这是重点,回头必须得搞清楚 */
+        if (!this.props.chat.chatmsg.length) {
+			this.props.getMsgList()
+			this.props.recvMsg()
+		}
     }
     render() {
         // console.log('dashboard!!')

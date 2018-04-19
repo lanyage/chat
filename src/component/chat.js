@@ -1,10 +1,8 @@
 import React from 'react'
-import { List, InputItem, NavBar ,Icon} from 'antd-mobile'
-// import io from 'socket.io-client'
+import { List, InputItem, NavBar, Icon, Grid } from 'antd-mobile'
 import { connect } from 'react-redux'
 import { getMsgList, sendMsg, recvMsg } from '../redux/chat.redux'
-// const socket = io('ws://localhost:9093')
-import {getChatId} from '../util'
+import { getChatId } from '../util'
 @connect(
     state => state,
     { getMsgList, sendMsg, recvMsg }
@@ -12,15 +10,11 @@ import {getChatId} from '../util'
 class Chat extends React.Component {
     constructor(props) {
         super(props)
-        this.state = { text: '', msg: [] }
+        this.state = { text: '', msg: [], showEmoji: false }
     }
     handleSubmit() {
-        // socket.emit('sendmsg', { text: this.state.text })
-
-
         const from = this.props.user._id
         const to = this.props.match.params.user
-
         const msg = this.state.text
         this.props.sendMsg({ from, to, msg })
         this.setState({ text: '' })
@@ -31,24 +25,36 @@ class Chat extends React.Component {
             this.props.getMsgList()
             this.props.recvMsg()
         }
+        
+    }
+    /** 用于解决bug */
+    fixCarousel() {
+        setTimeout(function () {
+            window.dispatchEvent(new Event('resize'))
+        }, 0)
     }
     render() {
-        // console.log(this.props)
+        const emoji = '😀 😃 😄 😁 😆 😅 😂 😊 😇 🙂 🙃 😉 😌 😍 😘 😗 😙 😚 😋 😜 😝 😛 🤑 🤗 🤓 😎 😏 😒 😞 😔 😟 😕 🙁 😣 😖 😫 😩 😤 😠 😡 😶 😐 😑 😯 😦 😧 😮 😲 😵 😳 😱 😨 😰 😢 😥 😭 😓 😪 😴 🙄 🤔 😬 🤐 😷 🤒 🤕 😈 👿 👹 👺 💩 👻 💀 ☠️ 👽 👾 🤖 🎃 😺 😸 😹 😻 😼 😽 🙀 😿 😾 👐 🙌 👏 🙏 👍 👎 👊 ✊ 🤘 👌 👈 👉 👆 👇 ✋  🖐 🖖 👋  💪 🖕 ✍️  💅 🖖 💄 💋 👄 👅 👂 👃 👁 👀 '
+            .split(' ')
+            .filter(v => v)
+            .map(v => ({ text: v }))
+
+
         const userid = this.props.match.params.user
         const Item = List.Item
         const users = this.props.chat.users
         /** 可能一瞬间还没渲染完,如果出于任何原因没有获取到数据的话,那么就不渲染,return null即可 */
-        if(!users[userid])
-            return null 
+        if (!users[userid])
+            return null
 
         const chatid = getChatId(userid, this.props.user._id)
-        console.log(chatid)
-        const chatmsgs = this.props.chat.chatmsg.filter(v=>v.chatid === chatid)
+        // console.log(chatid)
+        const chatmsgs = this.props.chat.chatmsg.filter(v => v.chatid === chatid)
         return (
             <div id='chat-page'>
                 <NavBar mode='dark'
                     icon={<Icon type='left'></Icon>}
-                    onLeftClick={()=>this.props.history.goBack()}
+                    onLeftClick={() => this.props.history.goBack()}
                 >
                     {users[userid].name}
                 </NavBar>
@@ -64,7 +70,7 @@ class Chat extends React.Component {
                         ) : (
                                 <List key={v._id} >
                                     <Item
-                                        extra={<img src={avatar} alt=''/>}
+                                        extra={<img src={avatar} alt='' />}
                                         className='chat-me'
                                     >{v.content}</Item>
                                 </List>
@@ -78,9 +84,33 @@ class Chat extends React.Component {
                             placeholder='请输入'
                             value={this.state.text}
                             onChange={v => this.setState({ text: v })}
-                            extra={<span onClick={() => this.handleSubmit()}>发送</span>}
+                            extra={
+                                <div>
+                                    <span
+                                        style={{ marginRight: 15 }}
+                                        onClick={() => {
+                                           this.setState({showEmoji : !this.state.showEmoji})
+                                           this.fixCarousel()
+                                        }}
+                                    >😃</span>
+                                    <span onClick={() => this.handleSubmit()}>发送</span>
+                                </div>
+                            }
                         ></InputItem>
                     </List>
+                    {/* 轮播图会有一个bug */}
+                    {this.state.showEmoji ? 
+                    <Grid
+                        data={emoji}
+                        columnNum={9}
+                        carouselMaxRow={4}
+                        isCarousel={true}
+                        onClick={el=> {
+                            this.setState({text : this.state.text + el.text})
+                            console.log(el)
+                        }}
+                    /> : null}
+
                 </div>
             </div>
         )
