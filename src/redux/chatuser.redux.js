@@ -1,6 +1,8 @@
 import axios from 'axios'
 
 const USER_LIST = 'USER_LIST'
+
+/** 初始状况为一个空数组 */
 const initState = {
     userlist : []
 }

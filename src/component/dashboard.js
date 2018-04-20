@@ -24,10 +24,11 @@ class DashBoard extends React.Component {
     }
     
     render() {
-        // console.log('dashboard!!')
+        
         const { pathname } = this.props.location
         const user = this.props.user
         
+        /** NavLinkBar的列表 */
         const navList = [
             {
                 path: '/boss',
@@ -64,16 +65,22 @@ class DashBoard extends React.Component {
 
         return (
             <div>
+                {/* dashboard主要就是一个上面的navbar和下面的navLinkbar,使用find函数来查找数组中符合的一个 */}
                 <NavBar className='fixed-header' mode='dark'>{navList.find(v => v.path === pathname).title}</NavBar>
+
                 <div style={{ marginTop: 45 }}>
+                    {/* 这是子路由 */}
                     <Switch>
                         {
                             navList.map(v => (
+                                // map的时候必须要存在key,并且key必须是唯一的
                                 <Route key={v.path} path={v.path} component={v.component}></Route>
                             ))
                         }
                     </Switch>
                 </div>
+            
+                {/* 这是下面的tabbars */}
                 <NavLinkBar data={navList}></NavLinkBar>
             </div>
         )

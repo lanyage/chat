@@ -7,6 +7,8 @@ const ERROR_MSG = 'ERROR_MSG'
 // const LOGOUT = 'LOGOUT'
 const LOAD_DATA = 'LOAD_DATA'
 const LOGOUT = 'LOGOUT'
+
+
 /**初始状态 */
 const initState = {
     username: '',
@@ -14,7 +16,6 @@ const initState = {
     msg: '',
     redirectTo: ''
 }//初始状态
-
 /** reducer */
 export function user(state = initState, action) {
     switch (action.type) {
@@ -51,7 +52,7 @@ function authSuccess(obj) {
 
 /**注册 */
 export function register({ username, password, repeatpsw, type }) {
-    console.log(username, password, repeatpsw, type)
+  
     if (!username || !password)
         return errorMsg('账号和密码不能为空')
     if (password !== repeatpsw)
@@ -69,12 +70,12 @@ export function register({ username, password, repeatpsw, type }) {
     }
 }//注册
 
-
+/** 加载用用户信息,然后存到redux中 */
 export function loadData(userinfo) {
     return { type: LOAD_DATA, payload: userinfo }
 }//加载userinfo到原有的state
 
-
+/** 完善用户的信息 */
 export function update(userinfo) {
     const { avatar, title, money, desc, company } = userinfo
     // console.log('hello:',userinfo)
@@ -92,7 +93,7 @@ export function update(userinfo) {
     }
 }
 
-/** 传说中的中间件 */
+/** 传说中的中间件,登录 */
 export function login(formuser) {
     const {username, password} = formuser
     if(!username || !password){

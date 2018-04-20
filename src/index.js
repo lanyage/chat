@@ -15,11 +15,12 @@ import DashBoard from './component/dashboard' //主页,会存在子路由
 import Chat from './component/chat'
 import './index.css'
 
-/**创建store */
+/** 使用创建store */
 const store = createStore(reducer, compose(
 	applyMiddleware(thunk),
 	window.devToolsExtension ? window.devToolsExtension() : f => f
 ))
+
 /**页面渲染*/
 ReactDOM.render(
 	(
@@ -28,15 +29,22 @@ ReactDOM.render(
 			{/* react路由 */}
 			<BrowserRouter>
 				<div>
-					{/* 用于全局的用户登录信息的验证 */}
+					{/* 用于全局的用户登录信息的验证,每个页面在render时都会加载cookie中用户的信息,如果用户信息不存在,那么就直接返回登陆页 */}
 					<Auth></Auth>
+
 					{/* react路由,switch表示命中第一个后后面的路由都不管了 */}
 					<Switch>
-						<Route path='/' exact component={Login}></Route>
+						{/* 如果没有后缀,那么就匹配登录组件 */}
+						<Route path='/' exact component={Login}></Route> 
+						{/* 牛人完善信息的页面组件 */}
 						<Route path='/geniusinfo' component={GeniusInfo}></Route>
+						{/* Boss完善信息的页面组件 */}
 						<Route path='/bossinfo' component={BossInfo}></Route>
+						{/* 登录页面组件 */}
 						<Route path='/login' component={Login}></Route>
+						{/* 注册页面组件 */}
 						<Route path='/register' component={register}></Route>
+						{/* 聊天界面组件 */}
 						<Route path='/chat/:user' component={Chat}></Route>
 						{/* 这是dashboard页面,其下有很多子路由 */}
 						<Route component={DashBoard}></Route>
