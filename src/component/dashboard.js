@@ -8,14 +8,7 @@ import NavLinkBar from '../component/navlinkbar'
 import Genius from '../component/genius'
 import Boss from '../component/boss'
 import User from '../component/user'
-function Msg() {
-    return (
-        <div>
-            <h1>Msg...</h1>
-        </div>
-    )
-}
-
+import Msg from '../component/msg'
 
 @connect(
     state => state,
@@ -29,6 +22,7 @@ class DashBoard extends React.Component {
 			this.props.recvMsg()
 		}
     }
+    
     render() {
         // console.log('dashboard!!')
         const { pathname } = this.props.location

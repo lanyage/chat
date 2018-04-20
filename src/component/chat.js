@@ -25,7 +25,7 @@ class Chat extends React.Component {
             this.props.getMsgList()
             this.props.recvMsg()
         }
-        
+
     }
     /** 用于解决bug */
     fixCarousel() {
@@ -87,10 +87,12 @@ class Chat extends React.Component {
                             extra={
                                 <div>
                                     <span
+                                        role='img'
+                                        aria-label='emoji'
                                         style={{ marginRight: 15 }}
                                         onClick={() => {
-                                           this.setState({showEmoji : !this.state.showEmoji})
-                                           this.fixCarousel()
+                                            this.setState({ showEmoji: !this.state.showEmoji })
+                                            this.fixCarousel()
                                         }}
                                     >😃</span>
                                     <span onClick={() => this.handleSubmit()}>发送</span>
@@ -99,17 +101,17 @@ class Chat extends React.Component {
                         ></InputItem>
                     </List>
                     {/* 轮播图会有一个bug */}
-                    {this.state.showEmoji ? 
-                    <Grid
-                        data={emoji}
-                        columnNum={9}
-                        carouselMaxRow={4}
-                        isCarousel={true}
-                        onClick={el=> {
-                            this.setState({text : this.state.text + el.text})
-                            console.log(el)
-                        }}
-                    /> : null}
+                    {this.state.showEmoji ?
+                        <Grid
+                            data={emoji}
+                            columnNum={9}
+                            carouselMaxRow={4}
+                            isCarousel={true}
+                            onClick={el => {
+                                this.setState({ text: this.state.text + el.text })
+                                console.log(el)
+                            }}
+                        /> : null}
 
                 </div>
             </div>

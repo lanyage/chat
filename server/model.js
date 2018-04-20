@@ -22,7 +22,7 @@ const models = {
         'from': { 'type': String, 'require': true },//发起人
         'to': { 'type': String, 'require': true },//接受人
         'content': { 'type': String, 'require': true, 'default': '' },
-        'createtime': { 'type': Number, 'default': new Date().getTime() },//创建时间 
+        'createtime': { 'type': Number, 'default': Date.now },//创建时间 
         'read': { 'type': Boolean, 'default': false }
     }
 }//定义数据模型
